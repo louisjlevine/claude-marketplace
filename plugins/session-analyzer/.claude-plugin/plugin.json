@@ -1,0 +1,6 @@
+{
+  "name": "session-analyzer",
+  "version": "1.0.0",
+  "description": "Analyze Claude Code sessions to identify usage patterns and skill candidates",
+  "author": { "name": "Louis" }
+}

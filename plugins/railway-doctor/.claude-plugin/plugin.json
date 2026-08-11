@@ -1,0 +1,6 @@
+{
+  "name": "railway-doctor",
+  "version": "1.0.0",
+  "description": "Diagnose Railway deployment health: DNS, SSL, env vars, DB connectivity, scheduler state",
+  "author": { "name": "Louis" }
+}

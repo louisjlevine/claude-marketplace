@@ -1,0 +1,43 @@
+{
+  "name": "louis-local",
+  "owner": { "name": "Louis" },
+  "version": "1.0.0",
+  "description": "Personal Claude Code marketplace — review agents, project bootstrap skills, and workflow commands",
+  "plugins": [
+    {
+      "name": "dev-agents",
+      "source": "./plugins/dev-agents",
+      "version": "1.0.0",
+      "description": "Plan- and post-build review subagents: architecture, spec, UX, backend/frontend QA, security, code quality",
+      "keywords": ["agents", "code-review", "qa", "security", "architecture"]
+    },
+    {
+      "name": "build-skills",
+      "source": "./plugins/build-skills",
+      "version": "1.0.0",
+      "description": "Project bootstrap and deploy skills: Next.js full-stack scaffold, Railway deploy, SwiftUI + HealthKit",
+      "keywords": ["skills", "nextjs", "railway", "swift", "healthkit", "bootstrap"]
+    },
+    {
+      "name": "session-analyzer",
+      "source": "./plugins/session-analyzer",
+      "version": "1.0.0",
+      "description": "Analyze Claude Code sessions to identify usage patterns and skill candidates",
+      "keywords": ["analysis", "sessions", "usage"]
+    },
+    {
+      "name": "railway-doctor",
+      "source": "./plugins/railway-doctor",
+      "version": "1.0.0",
+      "description": "Diagnose Railway deployment health: DNS, SSL, env vars, DB connectivity, scheduler state",
+      "keywords": ["railway", "deploy", "diagnostics", "dns", "ssl"]
+    },
+    {
+      "name": "linear-triage-runner",
+      "source": "./plugins/linear-triage-runner",
+      "version": "1.0.0",
+      "description": "Pull the highest-priority open Linear ticket, load it, and start work on it",
+      "keywords": ["linear", "triage", "tickets", "workflow"]
+    }
+  ]
+}

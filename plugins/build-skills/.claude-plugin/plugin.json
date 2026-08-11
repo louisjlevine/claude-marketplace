@@ -1,0 +1,7 @@
+{
+  "name": "build-skills",
+  "version": "1.0.0",
+  "description": "Project bootstrap and deploy skills: Next.js full-stack scaffold, Railway deploy, SwiftUI + HealthKit",
+  "author": { "name": "Louis" },
+  "keywords": ["skills", "nextjs", "railway", "swift", "healthkit", "bootstrap"]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "linear-triage-runner",
+  "version": "1.0.0",
+  "description": "Pull the highest-priority open Linear ticket, load it, and start work on it",
+  "author": { "name": "Louis" }
+}
