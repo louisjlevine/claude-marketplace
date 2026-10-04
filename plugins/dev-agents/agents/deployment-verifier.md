@@ -1,7 +1,7 @@
 ---
 name: deployment-verifier
 description: Use PROACTIVELY after any merge to main or deploy to Railway. Autonomously verifies a deployment by pulling latest, running tests, hitting the health endpoint, reading Railway logs for errors, and reporting back pass/fail with specifics. Invoke when Louis says "deploy to prod", "push to production", "verify the deploy", or after any successful git push to main on a Railway project.
-model: claude-fable-5
+model: claude-sonnet-5-5
 tools: Bash, Read, Grep, Glob, WebFetch
 ---
 
