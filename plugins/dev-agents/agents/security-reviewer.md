@@ -47,7 +47,16 @@ Apply what fits the stack. Name the principle, not just the API.
 ### Secrets & information disclosure
 - Hardcoded credentials, API keys, tokens, or connection strings in source or committed config.
 - Do error responses leak stack traces, internal paths, SQL text, or dependency versions in production?
-- Are secrets logged — including indirectly, by logging a whole request or config object?
+- Are secrets logged — including indirectly, by logging a whole request or config object? Debug lines that print an expected-vs-received secret count.
+- Secrets in URLs (`?secret=`, `?token=`) end up in proxy, platform, and provider logs. Prefer a header or a signature.
+- Secrets shipped to clients — mobile app source, `NEXT_PUBLIC_*`/bundled frontend config, desktop builds — are public and can only be rotated by releasing a new client. Flag any secret that would need an app-store release to rotate.
+
+### Assume the secret store leaks
+Hosting platforms' environment-variable stores get breached. Review every secret as if its value is already known to an attacker, and ask what it unlocks.
+- **Fail closed.** A security control that silently switches itself off when its config is missing or invalid is High: `if (SECRET) { check() }` guards, encryption that logs an error and stores plaintext, decrypt paths that return the ciphertext/input on failure. Missing or malformed security config must refuse requests or refuse to start.
+- **Static credentials as sessions.** A cookie compared directly to an env value, or a shared Basic-Auth password, means a leaked env grants a permanent login that can only be revoked by redeploying. Prefer signed, expiring sessions tied to a server-side check.
+- **Key next to the data.** A field-encryption key stored in the same env store as `DATABASE_URL` adds little against an env leak. Note it as Informational with the limitation, unless the key lives elsewhere (KMS, separate secret manager).
+- **Database reachability.** Connection strings that use a public endpoint (TCP proxy, public host) when the app could use private networking turn a leaked password into a remote breach. Flag new or changed connection config that goes public without a stated reason.
 
 ### Input validation
 - Is validation applied before the value is used, not after?
@@ -61,6 +70,7 @@ Apply what fits the stack. Name the principle, not just the API.
 ### Dependencies
 - For each newly added package: is it necessary, actively maintained, and reputable? Note typosquat-shaped names.
 - Recommend `npm audit` (or the ecosystem equivalent) when dependencies changed.
+- Check the runtime too: an end-of-life language runtime (e.g. a Python minor version past EOL) blocks security releases of its dependencies, so pins can't be patched. Flag EOL runtimes in build config, `requires-python`/`engines`, and lockfiles.
 
 ## Output format
 

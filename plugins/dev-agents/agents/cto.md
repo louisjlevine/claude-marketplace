@@ -34,10 +34,19 @@ Your bias is toward the smallest change that solves the actual problem. But you 
 One line: proceed / proceed with conditions / reconsider. Lead with it.
 
 ### Fit
-Does this belong in this codebase? For a new dependency: is it necessary at all, or is this a few dozen lines of first-party code? If necessary — is it maintained, appropriately sized, licence-compatible, and does it overlap something already in the tree?
+Does this belong in this codebase? For a new dependency: is it necessary at all, or is this a few dozen lines of first-party code? If necessary — is it maintained, appropriately sized, licence-compatible, and does it overlap something already in the tree? Does it still support the project's runtime, and is that runtime itself past end-of-life? An EOL runtime silently caps every dependency below its security fixes.
 
 ### Risk
 What actually goes wrong, ranked by likelihood × blast radius. Consider migration failure and partial-application, breaking changes to existing callers, expanded security surface, performance under realistic load, and operational cost. Skip risks that do not apply — a padded risk list is noise.
+
+### Secrets & recovery
+Only if the change adds or changes a secret, credential, integration, or datastore. Plan as if the hosting platform's env store will leak, because platforms do get breached:
+- **Blast radius.** What does this secret unlock if its value is public? Prefer designs where one leaked value isn't a full breach: scoped API keys, signed expiring sessions over static shared tokens, private networking over public database endpoints.
+- **Rotation path.** Who else holds the value (a third-party webhook config, a mobile app, an iOS Shortcut, a CI job)? Can it be rotated without a client release? If rotation needs a script (re-encrypting data, re-signing), it ships with the feature, not after the incident.
+- **Fail closed.** Missing or invalid security config must stop the app or the request, never quietly disable the control. Say so explicitly when the design involves encryption, auth, or webhook verification.
+- **Key separation.** Field encryption whose key sits in the same env store as the database URL protects little against an env leak. Either accept that consciously or keep the key elsewhere.
+- **Recovery.** Name the backup and restore path for any new datastore, and how to cut off access (disable a domain, drop a service) without a deploy. Platform deploy freezes during incidents block env-var changes too.
+- **Retirement.** When a feature or integration is removed, its secrets and routes are removed in the same change.
 
 ### The simpler alternative
 State at least one materially simpler approach and say honestly whether it wins. If the proposal survives contact with a simpler option, that is the strongest thing you can report. If it does not, recommend the alternative.
