@@ -7,7 +7,7 @@
     {
       "name": "dev-agents",
       "source": "./plugins/dev-agents",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Plan- and post-build review subagents: architecture, spec, UX, backend/frontend QA, security, code quality",
       "keywords": ["agents", "code-review", "qa", "security", "architecture"]
     },
